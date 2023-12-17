@@ -1,7 +1,7 @@
-const SLICE_COUNT = 10;
+const SLICE_COUNT = 20;
 
 function setup_pScope(pScope){
-  pScope.output_mode(ANIMATED_DISK);
+  pScope.output_mode(OUTPUT_GIF(1000,1000));
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
@@ -25,6 +25,19 @@ function faces(x, y, animation, pScope){
   
   scale(animation.frame*2);
 
+  //draw me a sun
+
+  fill(255, 204, 0);
+  ellipse(0,0,70,70); // draw base
+  
+  //draw 8 small triangles around the base
+  triangle(0,-50,-10,-40,10,-40);
+  triangle(50,0,40,-10,40,10);
+  triangle(0,50,-10,40,10,40);
+  triangle(-50,0,-40,-10,-40,10);
+
+
+  fill(255, 255, 255);
   ellipse(0,0,50,50); // draw head
   fill(30);
   ellipse(-10,-10,10,10); //draw eye
