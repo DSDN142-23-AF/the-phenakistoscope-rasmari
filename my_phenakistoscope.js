@@ -17,8 +17,8 @@ function setup_pScope(pScope){
   
   //pScope.output_mode(STATIC_FRAME);
   //pScope.output_mode(ANIMATED_FRAME);
-  //pScope.output_mode(ANIMATED_DISK);
-  pScope.output_mode(OUTPUT_GIF(1000));
+  pScope.output_mode(ANIMATED_DISK);
+  //pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
@@ -44,6 +44,7 @@ function setup_layers(pScope){
 
 function faces(x, y, animation, pScope){
   push ();
+  
   translate (-5+animation.frame*200,-100);
 
   rotate (10);
@@ -252,73 +253,99 @@ function squaress(x, y, animation, pScope){
   arc (0,0, 500,500, 258,282);
   fill (red);
 
-  //star
-  translate (0,-320);
-  rotate (180);
-  star();
-  pop();
-
-  push();
-  noStroke();
-  fill (red);
+  //stars
   translate (0,-200);
-  scale(0.65);
+  scale (0.5);
   rotate (180);
   star();
-  pop();
-
-  push();
-  noStroke();
   fill (beige);
-  translate (0,-168);
-  scale(0.4);
-  rotate (180);
+  scale(0.6);
+  star();
+  fill (red);
+  scale(0.6);
   star();
   pop();
 
   push();
   noStroke();
   fill (red);
-  translate (0,-90);
+  translate (0,-130);
   scale(0.3);
   rotate (180);
   star();
+  fill (beige);
+  scale(0.6);
+  star();
+  fill (red);
+  scale(0.6);
+  star();
   pop();
+
 
   push();
   noStroke();
-  fill (beige);
-  translate (0,-70);
-  scale(0.15);
+  fill (red);
+  translate (0,-80);
+  scale(0.18);
   rotate (180);
   star();
+  fill (beige);
+  scale(0.6);
+  star();
+  fill (red);
+  scale(0.6);
+  star();
   pop();
 
   push();
   noStroke();
-  rotate (185);
-  fill (orange);
-  translate (-100,1000);
-  scale(1);
-  
+  fill (red);
+  translate (0,-40);
+  scale(0.1);
+  rotate (180);
+  star();
+  fill (beige);
+  scale(0.6);
+  star();
+  fill (red);
+  scale(0.6);
   star();
   pop();
 
+  push();
+  noStroke();
 
+  fill (red);
+  translate (0, -900);
+  scale(0.8);
+  rotate ((360/SLICE_COUNT)*animation.frame*15);
+  star();
+  fill (beige);
+  scale(0.6);
+  star();
+  fill (red);
+  scale(0.6);
+  star();
+  fill (beige);
+  scale(0.6);
+  star();
+  
+  pop();
 }
 
 function star(){
-  beginShape();
-  vertex (0,-80); 
-  vertex (15, -110);
-  vertex (40, -115);
-  vertex (20, -135);
-  vertex (30, -170);
-  vertex (0, -150);
-  vertex (-30, -170);
-  vertex (-20, -135);
-  vertex (-40, -115);
-  vertex (-15, -110);
-  vertex (0, -80);
+  beginShape(); //create star
+  vertex (0,100);
+  vertex (22,30);
+  vertex (95,30);
+  vertex (36,-20);
+  vertex (65,-90);
+  vertex (0,-50);
+  vertex (-65,-90);
+  vertex (-36,-20);
+  vertex (-95,30);
+  vertex (-22,30);  
   endShape();
 }
+
+
