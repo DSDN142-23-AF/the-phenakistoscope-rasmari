@@ -257,6 +257,7 @@ function squaress(x, y, animation, pScope){
   translate (0,-200);
   scale (0.5);
   rotate (180);
+  translate (0,animation.wave()*10);
   star();
   fill (beige);
   scale(0.6);
@@ -270,6 +271,7 @@ function squaress(x, y, animation, pScope){
   noStroke();
   fill (red);
   translate (0,-130);
+  translate (0,animation.wave()*7);
   scale(0.3);
   rotate (180);
   star();
@@ -286,6 +288,7 @@ function squaress(x, y, animation, pScope){
   noStroke();
   fill (red);
   translate (0,-80);
+  translate (0,animation.wave()*-3);
   scale(0.18);
   rotate (180);
   star();
