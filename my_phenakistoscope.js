@@ -17,9 +17,9 @@ function setup_pScope(pScope){
   
   //pScope.output_mode(STATIC_FRAME);
   //pScope.output_mode(ANIMATED_FRAME);
-  pScope.output_mode(ANIMATED_DISK);
-  //pScope.output_mode(OUTPUT_GIF(1000));
-  pScope.scale_for_screen(true);
+  //pScope.output_mode(ANIMATED_DISK);
+  pScope.output_mode(STATIC_DISK);
+  pScope.scale_for_screen(false);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
@@ -48,6 +48,7 @@ function faces(x, y, animation, pScope){
   translate (-5+animation.frame*200,-100);
 
   rotate (10);
+  //scale(2);
   scale (0.5+animation.frame*2);
   //start of the man
   //hands
