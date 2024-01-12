@@ -15,10 +15,7 @@ let red = 'rgb(255,0,0)';
 
 function setup_pScope(pScope){
   
-  //pScope.output_mode(STATIC_FRAME);
-  //pScope.output_mode(ANIMATED_FRAME);
-  //pScope.output_mode(ANIMATED_DISK);
-  pScope.output_mode(STATIC_DISK);
+  pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(false);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
@@ -27,30 +24,34 @@ function setup_pScope(pScope){
 
 function setup_layers(pScope){
 
-  new PLayer(null, 220);  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, 220);  
 
+  //Background layer
   var layer2 = new PLayer(squaress);
   layer2.mode( RING );
   layer2.set_boundary( 0, 400 );
   
-  var layer1 = new PLayer(faces);
+  //Person layer
+  var layer1 = new PLayer(person);
   layer1.mode( SWIRL(1));
   layer1.set_boundary( 200, 1000 );
 
-  var layer2 = new PLayer(squares);
+  //Cannon layer
+  var layer2 = new PLayer(cannon);
   layer2.mode( RING );
   layer2.set_boundary( 0, 400 );
 }
 
-function faces(x, y, animation, pScope){
+function person(x, y, animation, pScope){
   push ();
-  
-  translate (-5+animation.frame*200,-100);
 
+  //Initial setup
+  translate (-5+animation.frame*200,-100); // so man flys in a diagonal line
   rotate (10);
-  //scale(2);
-  scale (0.5+animation.frame*2);
-  //start of the man
+  scale (0.5+animation.frame*2); // increases in size as it goes along
+
+  //THE MAN CODE
+
   //hands
   fill (pink);
   ellipse (-75,-300, 40, 40);
@@ -60,23 +61,23 @@ function faces(x, y, animation, pScope){
   arc (-75,-300, 20, 20, 300,0);
   arc (75,-300, 20, 20, 300,0);
 
-
+  //Sleaves
   fill(black);
   rect (-100,-300, 50, 10);
   rect (50,-300, 50, 10);
   
-  //The lines
+  //The lines on suit
   fill(blue);
   noStroke();
-  let xx;
-  let yx;
-  for (let i=0;i<20;i++){
-    if (i%2==0){
+  let xx, yx;  
+
+  for (let i=0;i<20;i++){ //draws 19 stripes on the suit
+    if (i%2==0){ //every second one is beige
       fill(beige);
     }else{
-      fill(blue);
+      fill(blue); //every other one is blue
     }
-    if (i<6 || i>13){
+    if (i<6 || i>13){ //the first 6 and last 6 are longer, and reach the end of the arms
       beginShape();
       xx = -100+10*i;
       yx = -20+2*i;
@@ -87,9 +88,9 @@ function faces(x, y, animation, pScope){
       endShape();
       
       stroke(1);
-      line(xx,-290, yx,50);
+      line(xx,-290, yx,50); //between each colour is a black line
 
-    } else{
+    } else{ //the middle 7 are shorter, and only have to reach to the head
       noStroke();
       beginShape();
       xx = -80+8*i;
@@ -101,23 +102,23 @@ function faces(x, y, animation, pScope){
       endShape();
 
       stroke(1);
-      line(xx, -200,yx,50);
+      line(xx, -200,yx,50); //between each colour is a black line
     }
   }
 
   fill(black);
-  arc ( -10, 50, 20, 20, 0, 180);
-  arc ( 10, 50, 20, 20, 0, 180);
-  arc (-70,-290, 60, 10, 0, 180);
-  arc (70,-290, 60, 10, 0, 180);
-  arc (-70,-290, 60, 10, 180, 0);
-  arc (70,-290, 60, 10, 180, 0);
+  arc ( -10, 50, 20, 20, 0, 180); //left foot
+  arc ( 10, 50, 20, 20, 0, 180); //right foot
+  arc (-70,-290, 60, 10, 0, 180); //left sleave
+  arc (70,-290, 60, 10, 0, 180); //right sleave
+  arc (-70,-290, 60, 10, 180, 0); //left sleave
+  arc (70,-290, 60, 10, 180, 0); //right sleave
 
-  //The tie
+  //The Tie
   fill (beige);
-  triangle (0, -60, -30, -200, 30, -200);
+  triangle (0, -60, -30, -200, 30, -200); //draw the shirt under the tie
   fill (darkOrange);
-  beginShape();
+  beginShape(); //The tie
   vertex (0, -160);
   vertex (10, -145);
   vertex (2, -135);
@@ -128,16 +129,18 @@ function faces(x, y, animation, pScope){
   vertex (-10, -145);
   vertex (0, -160);
   endShape();
-  line(0,-160,-16,-137);
-  line(0,-160,16,-137);
+  line(0,-160,-16,-137); //left collar
+  line(0,-160,16,-137); //right collar
 
   
  
-  //The face
+  //THE FACE OF MAN
   translate (0,-200);
   scale(0.5);
+
+  //draw head
   fill (pink);
-  ellipse(0,0,150,200); // draw base
+  ellipse(0,0,150,200); 
 
   //lips
   arc (0,70,50,15,0,180);
@@ -191,23 +194,24 @@ function faces(x, y, animation, pScope){
   stroke(1);
 }
 
-function squares(x, y, animation, pScope){
-  //cannon
+function cannon(x, y, animation, pScope){
+  //Initial setup
   push()
   stroke(black);
-  strokeWeight(2);  fill(255, 255, 255);
+  strokeWeight(2);  
+  fill(255, 255, 255);
   scale(0.6);
-
   translate(-10,-500);
   rotate (100);
 
+  //THE CANNON CODE
+
   fill(darkOrange);
-  ellipse (0+30*animation.wave(),-45, 50,50);
+  ellipse (0+30*animation.wave(),-45, 50,50); //back wheel
   rect (-5+30*animation.wave(),-55,70,30);
 
   fill (orange);
-
-  ellipse (-10+30*animation.wave(),0, 180+10*animation.wave(),150-50*animation.wave());
+  ellipse (-10+30*animation.wave(),0, 180+10*animation.wave(),150-50*animation.wave()); //base of cannon
 
   //triangle decor
   fill (yellow);
@@ -219,11 +223,11 @@ function squares(x, y, animation, pScope){
   triangle (-100+30*animation.wave(),-20, 20+30*animation.wave()
     ,0, -100+30*animation.wave(),20);
 
+  //Cannon's rim
   stroke(1);
   fill (darkOrange);
   rect ( -100+30*animation.wave(),-50, 15,100);
   arc (-87+30*animation.wave(),0, 40,100, 270,90);
-
   fill (orange);
   arc (-100+30*animation.wave(),0, 30,100, 90,270);
   arc (-100+30*animation.wave(),0, 40,100, 270,90);
@@ -232,42 +236,43 @@ function squares(x, y, animation, pScope){
   arc (-100+30*animation.wave(),0, 20,80, 270,90);
 
   fill (darkOrange);
-  ellipse (50+30*animation.wave(),-50, 50,50);
+  ellipse (50+30*animation.wave(),-50, 50,50); //front wheel
 
-  
-  pop()
-
-
-  
-
+  pop(); 
 }
 
 function squaress(x, y, animation, pScope){
+  //Initial setup
   push();
   noStroke();
-  fill (beige);
-  arc (0,0, 2000,2000, 258,282);
-  fill(red);
-  arc (0,0, 2000,2000, 258,265);
-  arc (0,0, 2000,2000, 275,282);
-  fill (beige);
-  arc (0,0, 500,500, 258,282);
-  fill (red);
 
-  //stars
+  //THE BACKGROUND CODE
+  fill (beige);
+  arc (0,0, 2000,2000, 258,282); //background beige circle
+  fill(red);
+  arc (0,0, 2000,2000, 258,265); //left red line
+  arc (0,0, 2000,2000, 275,282); //right red line
+  fill (beige);
+  arc (0,0, 500,500, 258,282); //bottom beige circle
+
+  //STARS
+
+  //biggest star at the bottom
+  fill (red);
   translate (0,-200);
   scale (0.5);
   rotate (180);
   translate (0,animation.wave()*10);
-  star();
+  star(); //first red layer
   fill (beige);
   scale(0.6);
-  star();
+  star(); //second beige layer
   fill (red);
   scale(0.6);
-  star();
+  star(); //third red layer
   pop();
 
+  //second biggest star
   push();
   noStroke();
   fill (red);
@@ -275,16 +280,16 @@ function squaress(x, y, animation, pScope){
   translate (0,animation.wave()*7);
   scale(0.3);
   rotate (180);
-  star();
+  star(); //first red layer
   fill (beige);
   scale(0.6);
-  star();
+  star();  //second beige layer
   fill (red);
   scale(0.6);
-  star();
+  star(); //third red layer
   pop();
 
-
+  //third biggest star
   push();
   noStroke();
   fill (red);
@@ -292,51 +297,54 @@ function squaress(x, y, animation, pScope){
   translate (0,animation.wave()*-3);
   scale(0.18);
   rotate (180);
-  star();
+  star(); //first red layer
   fill (beige);
   scale(0.6);
-  star();
+  star(); //second beige layer
   fill (red);
   scale(0.6);
-  star();
+  star(); //third red layer
   pop();
 
+  //fourth biggest star
   push();
   noStroke();
   fill (red);
   translate (0,-40);
   scale(0.1);
   rotate (180);
-  star();
+  star(); //first red layer
   fill (beige);
   scale(0.6);
-  star();
+  star(); //second beige layer
   fill (red);
   scale(0.6);
-  star();
+  star(); //third red layer
   pop();
 
+  //Top Spinning Star
   push();
   noStroke();
-
   fill (red);
   translate (0, -900);
   scale(0.8);
-  rotate ((360/SLICE_COUNT)*animation.frame*15);
-  star();
+  rotate ((360/SLICE_COUNT)*animation.frame*15); //rotate the star to spin
+  star(); //first red layer
   fill (beige);
   scale(0.6);
-  star();
+  star(); //second beige layer
   fill (red);
   scale(0.6);
-  star();
+  star(); //third red layer
   fill (beige);
   scale(0.6);
-  star();
-  
+  star(); //fourth beige layer
   pop();
 }
 
+/**
+ * Draws a star
+ */
 function star(){
   beginShape(); //create star
   vertex (0,100);
